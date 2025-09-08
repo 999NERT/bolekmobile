@@ -1,164 +1,126 @@
-// === YOUTUBE MINIATURKA ===
+const buttons = document.querySelectorAll('.mobile-button');
+let activeButton = null;
+
+buttons.forEach(btn => {
+  const textSpan = btn.querySelector('.button-text');
+  const originalHTML = textSpan.innerHTML;
+  const description = btn.dataset.description;
+  const url = btn.getAttribute('href'); // <-- MUSI być pobrane tutaj!
+  const badge = btn.closest('.button-with-popup').querySelector('.age-badge-mobile, .event-badge-mobile');
+
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+
+    // Drugi klik -> przejście
+    if (activeButton === btn && btn.classList.contains('show-description')) {
+      window.location.href = url; // działa na mobile
+      return;
+    }
+
+    // Inny przycisk był aktywny -> przywróć
+    if (activeButton && activeButton !== btn) {
+      const prevSpan = activeButton.querySelector('.button-text');
+      prevSpan.innerHTML = activeButton.dataset.originalText;
+      activeButton.classList.remove('show-description');
+
+      const prevBadge = activeButton.closest('.button-with-popup').querySelector('.age-badge-mobile, .event-badge-mobile');
+      if (prevBadge) prevBadge.style.display = 'block';
+
+      activeButton = null;
+    }
+
+    // Pierwszy klik -> opis
+    if (!btn.classList.contains('show-description')) {
+      btn.dataset.originalText = originalHTML;
+      textSpan.innerHTML = `
+        ${description}
+        <br><span class="click-hint">Kliknij ponownie, aby przejść na stronę</span>
+      `;
+      btn.classList.add('show-description');
+      if (badge) badge.style.display = 'none';
+      activeButton = btn;
+    }
+  });
+});
+
+
+// === YT MINIATURKA ===
 async function loadLatestVideo() {
-  const channelId = "UCb4KZzyxv9-PL_BcKOrpFyQ"; 
+  const channelId = "UCb4KZzyxv9-PL_BcKOrpFyQ";
   const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`)}`;
-  
   const img = document.getElementById("latestThumbnail");
   const btn = document.getElementById("watchButton");
   const err = document.getElementById("videoError");
-  const loader = document.querySelector(".yt-loader");
-
-  if(err) err.style.display = "none";
-  if(btn) btn.style.display = "none";
-  if(img) img.style.display = "none";
-  if(loader) loader.style.display = "flex";
 
   try {
     const res = await fetch(proxy);
-    const data = await res.json();
-    const xml = new DOMParser().parseFromString(data.contents, "application/xml");
+    const { contents } = await res.json();
+    const xml = new DOMParser().parseFromString(contents,"application/xml");
     const entries = xml.getElementsByTagName("entry");
-
     if (!entries.length) throw new Error("Brak filmów");
 
     let videoEntry = [...entries].find(e => !e.getElementsByTagName("title")[0].textContent.toLowerCase().includes("short")) || entries[0];
     const videoId = videoEntry.getElementsByTagName("yt:videoId")[0].textContent.trim();
-
-    if(btn) btn.href = `https://www.youtube.com/watch?v=${videoId}`;
-    if(img){
+    if (btn) btn.href = `https://www.youtube.com/watch?v=${videoId}`;
+    if (img) {
       img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-      img.onload = () => {
-        img.style.display = "block";
-        if(btn) btn.style.display = "block";
-        if(loader) loader.style.display = "none";
-      };
-      img.onerror = () => {
-        img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        img.style.display = "block";
-        if(btn) btn.style.display = "block";
-        if(loader) loader.style.display = "none";
-      };
+      img.onload = () => btn?.classList.add("visible");
+      img.onerror = () => img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
     }
-
-  } catch (e) {
-    console.error("Błąd wczytywania YT:", e);
-    if(loader) loader.style.display = "none";
-    if(err) err.style.display = "block";
+  } catch(e) {
+    console.error(e);
+    if (err) err.hidden = false;
   }
 }
 
-// === STREAM STATUS ===
+// === STREAM LIVE STATUS ===
 async function checkStreamStatus() {
   const twitch = document.getElementById("twitchLivePanel");
   const kick = document.getElementById("kickLivePanel");
-  const discord = document.querySelector(".discord-btn .live-text");
 
   // Twitch
   try {
     const res = await fetch("https://decapi.me/twitch/uptime/angelkacs");
     const text = await res.text();
-    if(twitch){
-      const textEl = twitch.querySelector(".live-text");
-      if(text.toLowerCase().includes("offline")){
-        textEl.textContent = "OFFLINE";
-        textEl.classList.remove("live");
-      } else {
-        textEl.textContent = "LIVE";
-        textEl.classList.add("live");
-      }
+    if (text.includes("offline")) {
+      twitch?.classList.remove("live");
+      twitch?.querySelector(".live-text") && (twitch.querySelector(".live-text").textContent = "OFFLINE");
+    } else {
+      twitch?.classList.add("live");
+      twitch?.querySelector(".live-text") && (twitch.querySelector(".live-text").textContent = "LIVE");
     }
-  } catch (e) { console.log("Błąd Twitch API:", e); }
+  } catch (e) { console.log("Twitch API error:", e); }
 
   // Kick
   try {
     const res = await fetch("https://kick.com/api/v2/channels/angelkacs");
-    if(res.ok){
+    if (res.ok) {
       const data = await res.json();
-      if(kick){
-        const textEl = kick.querySelector(".live-text");
-        if(data.livestream?.is_live){
-          textEl.textContent = "LIVE";
-          textEl.classList.add("live");
-        } else {
-          textEl.textContent = "OFFLINE";
-          textEl.classList.remove("live");
-        }
+      if (data.livestream?.is_live) {
+        kick?.classList.add("live");
+        kick?.querySelector(".live-text") && (kick.querySelector(".live-text").textContent = "LIVE");
+      } else {
+        kick?.classList.remove("live");
+        kick?.querySelector(".live-text") && (kick.querySelector(".live-text").textContent = "OFFLINE");
       }
     }
-  } catch(e){ console.log("Błąd Kick API:", e); }
-
-  // Discord
-  if(discord){
-    discord.textContent = "JOIN";
-    discord.classList.add("join"); // kolor można ustawić w CSS
-  }
+  } catch (e) { console.log("Kick API error:", e); }
 }
 
-// === T-MOBILE MODAL ===
-const tmobileBtn = document.getElementById('tmobileBtn');
-const tmobileModal = document.getElementById('tmobileModal');
-const tmobileModalClose = document.getElementById('tmobileModalClose');
-const eventText = document.querySelector(".live-text-event");
-
-if(tmobileBtn && tmobileModal){
-  tmobileBtn.addEventListener('click', () => {
-    tmobileModal.classList.add('show');
-  });
-}
-
-if(tmobileModalClose && tmobileModal){
-  tmobileModalClose.addEventListener('click', () => {
-    tmobileModal.classList.remove('show');
-  });
-}
-
-if(tmobileModal){
-  tmobileModal.addEventListener('click', (e) => {
-    if(e.target === tmobileModal){
-      tmobileModal.classList.remove('show');
-    }
-  });
-}
-
-// === T-MOBILE + EVENT ZOOM ===
-if(tmobileBtn && eventText){
-  tmobileBtn.addEventListener('mouseenter', () => {
-    tmobileBtn.style.transform = "scale(1.1)";
-    eventText.style.transform = "scale(1.1)";
-  });
-  tmobileBtn.addEventListener('mouseleave', () => {
-    tmobileBtn.style.transform = "scale(1)";
-    eventText.style.transform = "scale(1)";
-  });
-}
-
-// === BLOKADA PRAWEGO PRZYCISKU I SKRÓTÓW ===
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  alert("Prawy przycisk myszy został zablokowany!");
-});
-
-document.addEventListener('keydown', function(e) {
-  // Ctrl+U
-  if(e.ctrlKey && e.key.toLowerCase() === 'u'){
-    e.preventDefault();
-    alert("Wyświetlanie źródła strony jest zablokowane!");
-  }
-  // F12
-  if(e.key === "F12"){
-    e.preventDefault();
-    alert("Otwieranie DevTools jest zablokowane!");
-  }
-  // Ctrl+Shift+I
-  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i'){
-    e.preventDefault();
-    alert("Otwieranie DevTools jest zablokowane!");
-  }
-});
-
-// === INIT ===
+// === START ===
 document.addEventListener("DOMContentLoaded", () => {
   loadLatestVideo();
   checkStreamStatus();
   setInterval(checkStreamStatus, 60000);
 });
+
+const ytImage = new Image();
+ytImage.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+ytImage.onload = () => {
+  img.src = ytImage.src;  // dopiero teraz ustawiamy src w <img>
+  img.classList.add('visible');
+};
+ytImage.onerror = () => {
+  img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  img.classList.add('visible');
+};
