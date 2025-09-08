@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AngelkaCSS Mobile</title>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Paytone+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile-style.css">
 </head>
 <body>
 <div class="main-wrapper">
@@ -73,11 +73,16 @@
 
   <!-- MINIATURKA YT -->
   <section class="latest-video-container">
-    <img id="latestThumbnail" alt="Miniaturka najnowszego filmu" class="video-thumb" />
-    <a id="watchButton" class="play-button" href="#" target="_blank" aria-label="Oglądaj najnowszy film">
-      <img src="ytclick.png" alt="Oglądaj teraz" class="yt-click-image" />
-    </a>
-    <p id="videoError" class="video-error" hidden>Nie udało się wczytać miniaturki. Spróbuj odświeżyć.</p>
+    <div class="video-wrapper" id="videoWrapper">
+      <div class="yt-loader">
+        <div class="spinner"></div>
+      </div>
+      <img id="latestThumbnail" alt="" class="video-thumb hidden" />
+      <a id="watchButton" class="play-button hidden" href="#" target="_blank" aria-label="Oglądaj najnowszy film">
+        <img src="ytclick.png" alt="Oglądaj teraz" class="yt-click-image" />
+      </a>
+      <p id="videoError" class="video-error hidden">Nie udało się wczytać miniaturki. Spróbuj odświeżyć.</p>
+    </div>
   </section>
 
   <!-- STREAM -->
@@ -142,6 +147,6 @@
   </footer>
 
 </div>
-<script src="script.js"></script>
+<script src="mobile-script.js"></script>
 </body>
 </html>
