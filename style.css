@@ -1,402 +1,155 @@
-/* === RESET === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  height: 100%;
-  font-family: 'Titillium Web', sans-serif;
-  color: white;
-  overflow-x: hidden;
-  background: url("aster.png") no-repeat center center fixed;
-  background-size: cover;
-}
-.main-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px 20px;
-  min-height: 100vh;
+*{margin:0;padding:0;box-sizing:border-box;}
+html, body{
+  height:100%;
+  font-family:'Titillium Web',sans-serif;
+  color:white;
+  overflow-x:hidden;
+  width:100%;
+  min-width:100vw;
+  background:url("aster.png") no-repeat center center fixed;
+  background-size:cover;
 }
 
-/* === PRZYCISKI PARTNERSKIE === */
-.buttons-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 40px;
-  align-items: flex-start;
+.main-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  min-height:100vh;
+  padding:25px 5px;
 }
-.button-with-popup {
-  position: relative;
-  text-align: center;
+
+/* PRZYCISKI PARTNERSKIE */
+.buttons-container{display:flex;flex-direction:column;gap:10px;width:100%;max-width:400px;margin-bottom:20px;}
+.button-with-popup{position:relative;text-align:center;}
+.button-with-popup a{
+  display:block;
+  padding:10px 28px;
+  border-radius:50px;
+  font-weight:900;
+  font-size:28px;
+  text-decoration:none;
+  transition:all .3s ease;
+  text-align:center;
 }
-.button-with-popup a {
-  display: inline-block;
-  padding: 14px 28px;
-  border-radius: 30px;
-  font-weight: 900;
-  font-size: 28px;
-  text-decoration: none;
-  transition: all .3s ease;
-  text-align: center;
+.age-badge-mobile{
+  position:absolute;top:15px;left:4%;
+  transform:translateX(-50%);
+  background:rgba(200,0,0,0.9);
+  color:white;font-size:0.8rem;font-weight:900;
+  padding:3px 8px;border-radius:6px;border:2px solid white;
+  z-index:10;text-shadow:1px 1px 2px rgba(0,0,0,0.7);
 }
-.button-with-popup a:hover {
-  transform: scale(1.05);
-}
-.description-panel {
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: 500px;
-  padding: 12px 18px;
-  background: rgba(26, 26, 26, 1);
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  opacity: 0;
-  transition: opacity .25s ease;
-  z-index: 10;
-  pointer-events: none;
-}
-.button-with-popup:hover .description-panel {
-  opacity: 1;
-}
-.panel-content {
-  font-family: 'Paytone One', sans-serif;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  color: white;
+
+/* Opisy przycisków z cieniowaniem */
+.button-with-popup a.show-description .button-text {
+  font-size: 0.96rem;
+  line-height: 1.4;
+  display:block;
+  padding:4px;
+  color:white;
+  text-shadow:
+    1px 1px 2px rgba(0,0,0,0.7),
+    2px 2px 4px rgba(0,0,0,0.6),
+    3px 3px 6px rgba(0,0,0,0.5);
   word-wrap: break-word;
 }
 
-/* === KOLORY PRZYCISKÓW === */
-.logitech-btn a { background:white; color:black; }
-.logitech-btn a:hover { background:#8e8e8e; }
-.logitech-highlight, .logitech-tech { color:#00FFFF; font-weight:900; }
+/* KOLORY PRZYCISKÓW */
+.logitech-btn a{background:white;color:black;}
+.logitech-highlight,.logitech-tech{color:#05B8FB;font-weight:900;}
+.pirateswap-btn a{background:#1E1D22;color:white;}
+.pirateswap-swap{color:#ff4300;}
+.csgoskins-btn a{background:#0D2345;color:white;}
+.csgoskins-highlight{color:#14A3C7;font-weight:900;}
+.discord-text{color:#5764F2;font-weight:900;}
+.blue-o{color:#4fc3f7;}
+.wkdzik-btn a{background:black;color:white;}
+.wkdzik-highlight{color:#d7b9ff;font-weight:900;}
+.betters-btn a{background:#262D3A;color:white;}
+.betters-ters{color:#E50420;}
+.betters-highlight{color:#E50420;font-weight:900;}
 
-.pirateswap-btn a { background:#1E1D22; color:white; }
-.pirateswap-btn a:hover { background:#952903; }
-.pirateswap-swap { color:#ff4300; }
-
-.csgoskins-btn a { background:#0D2345; color:white; }
-.csgoskins-btn a:hover { background:#0a6699; }
-.csgoskins-highlight { color:#14A3C7; font-weight:900; }
-.discord-text { color:#5764F2; font-weight:900; }
-.blue-o { color:#4fc3f7; }
-
-.wkdzik-btn a { background:black; color:white; }
-.wkdzik-btn a:hover { background:white; color:#1b1b1b; }
-.wkdzik-highlight { color:#de74ff; font-weight:900; }
-
-.betters-btn a { background:#262D3A; color:white; }
-.betters-btn a:hover { background:#68030f; }
-.betters-ters { color:#E50420; }
-.betters-highlight { color:#E50420; font-weight:900; }
-
-/* === +18 BADGE === */
-.age-badge, .age-badge-betters {
-  position: absolute;
-  top: -12px;
-  right: -12px;
-  background: #000;
-  border: 3px solid red;
-  color: red;
-  font-weight: 900;
-  padding: 3px 6px;
-  font-size: 14px;
-  border-radius: 6px;
-  z-index: 20;
-}
-
-/* === MINIATURKA YT === */
-.latest-video-container {
-  position: relative;
-  width: min(80%, 900px);
-  margin: 16px auto;
-  text-align: center;
-}
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  background: #000;
-  border: 8px solid red;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.video-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-}
-.play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  display: none;
-}
-.yt-click-image {
-  width: 90px;
-  height: auto;
-}
-.yt-loader {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-  z-index: 5;
-}
-.spinner {
-  border: 6px solid rgba(255,255,255,0.2);
-  border-top: 6px solid red;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.video-error {
-  color: #ff6b6b;
-  font-weight: 700;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  display: none;
-  background: none;
-  border: none;
-}
-
-/* === T-MOBILE + EVENT === */
-.tmobile-wrapper {
-  position: absolute;
-  top: 248px;
-  left: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 100;
-}
-.tmobile-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tmobile-btn {
-  width: 170px;
-  height: 170px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background: #000;
-  border: 4px solid #cf016a;
-  border-radius: 12px;
-  transition: transform .2s ease;
-}
-.tmobile-btn:hover {
-  transform: scale(1.1);
-}
-.tmobile-btn:hover + .live-text-event {
-  transform: scale(1.1);
-}
-.tmobile-image {
-  width: 100%;
-  height: 91%;
-  object-fit: contain;
-}
-.live-text-event {
-  font-weight: 900;
-  margin-top: -204px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 2px solid white;
-  background: #000;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-  color: white;
-  text-transform: uppercase;
-  text-align: center;
-  transition: transform .2s ease;
-}
-
-/* === STREAM BUTTONS === */
-.stream-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-}
-.stream-button-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.stream-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
-  height: 120px;
-  transition: all .3s ease;
-}
-.stream-button-image {
-  width: 95%;
-  height: 95%;
-  object-fit: contain;
-}
-.stream-button:hover .stream-button-image { transform: scale(1.05); }
-.live-panel {
-  width: 80px;
-  height: 30px;
-  background: rgba(0,0,0,1);
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #ff4444;
-}
-
-/* === LIVE / OFFLINE / JOIN === */
-.live-text {
-  font-weight: 800;
-  font-size: 14px;
-  color: #ff4444; /* domyślny OFFLINE */
-  transition: color 0.2s ease;
-}
-.live-text.live {
-  color: #00FF00; /* kolor LIVE */
-}
-.live-text.join {
-  color: #1DA1F2; /* kolor JOIN */
-}
-
-/* === SOCIAL BUTTONS === */
-.additional-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-  flex-wrap: wrap;
-}
-.additional-button {
-  width: 90px;
-  height: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.additional-button-image {
-  width: 95%;
-  height: 95%;
-  object-fit: contain;
-}
-.additional-button:hover .additional-button-image { transform: scale(1.05); }
-
-/* === STOPKA === */
-.site-footer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px 20px;
-  margin-top: 30px;
-}
-.left-footer-text, .right-footer-text {
-  background: #000;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 30px;
-  font-weight: 400;
-}
-.left-footer-text a, .right-footer-text a { color: #BF8EF8; text-decoration: none; }
-
-/* === TMOBILE MODAL === */
-.tmobile-modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  z-index: 9999;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.4s ease;
-}
-.tmobile-modal.show {
-  opacity:1;
-  pointer-events:auto;
-}
-.tmobile-modal-content {
-  background:#890247;
+/* T-MOBILE */
+.tmobile-btn a {
+  background:#5c002f;
   color:white;
-  padding: 15px 30px;
-  max-width:600px;
-  width:90%;
-  border-radius:12px;
-  position: relative;
-  text-align: center;
-  transform: translateY(-30px);
-  transition: transform 0.4s ease;
 }
-.tmobile-modal.show .tmobile-modal-content { transform: translateY(0); }
-.tmobile-modal-content p {
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-.tmobile-register-btn {
-  display:inline-block;
-  margin-bottom:-29px;
-  padding:6px 25px;
-  background:#ff0082;
-  color:white;
+.tmobile-highlight {
+  color:#e20074;
   font-weight:900;
-  font-size:20px;
-  text-decoration:none;
-  border-radius:8px;
-  text-transform:uppercase;
-  text-shadow:2px 2px 4px rgba(0,0,0,0.8);
-  transition: all .2s ease;
 }
-.tmobile-register-btn:hover { background:#9d356a; }
-.tmobile-modal-content button {
-  position:absolute;
-  bottom:-14px;
-  right:-14px;
-  background:#ff0082;
-  color:white;
-  border:none;
-  font-size:18px;
+.tmobile-btn .age-badge-mobile {
+  background:rgba(200,0,0,0.9);
+  font-size:0.8rem;
   font-weight:900;
-  padding:5px 12px;
+  padding:3px 8px;
   border-radius:6px;
-  cursor:pointer;
-  transition: all .2s ease;
+  border:2px solid white;
+  top:15px;
+  left:5%;
+  transform:translateX(-50%);
+  text-shadow:1px 1px 2px rgba(0,0,0,0.7);
 }
-.tmobile-modal-content button:hover { background:#9d356a; }
+
+/* MINIATURKA YT */
+.latest-video-container{position:relative;width:90%;max-width:380px;margin:10px auto;text-align:center;border-radius:12px;overflow:hidden;border:3px solid rgba(255,0,0,0.9);background:#000;}
+.video-thumb{width:100%;height:auto;display:block;object-fit:cover;}
+.play-button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .25s ease, transform .2s ease;z-index:60;}
+.play-button.visible{opacity:1;transform:translate(-50%,-50%) scale(1);}
+.yt-click-image{width:120px;height:auto;}
+.video-error{color:#ff6b6b;font-weight:700;text-align:center;padding:10px 5px;}
+
+/* STREAM */
+.stream-buttons-container{display:flex;justify-content:center;gap:10px;margin:0px 0;flex-wrap:wrap;}
+.stream-button-wrapper{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.stream-button{width:80px;height:80px;display:flex;justify-content:center;align-items:center;transition:all .3s ease;}
+.stream-button-image{width:95%;height:95%;object-fit:contain;}
+.stream-button:hover .stream-button-image{transform:scale(1.05);}
+.live-panel{width:60px;height:25px;background:#000;border-radius:6px;display:flex;justify-content:center;align-items:center;border:2px solid #ff4444;}
+.live-panel.live{background:rgba(0,0,0,1);border-color:#00ff00;box-shadow:0 0 10px rgba(0,255,0,.4);}
+.live-text{font-size:12px;font-weight:800;color:#ff4444;}
+.live-panel.live .live-text{color:#00ff00;animation:pulseLive 1.5s infinite;}
+@keyframes pulseLive{0%{opacity:0.6}50%{opacity:1}100%{opacity:0.6;}}
+
+/* SOCIAL MEDIA */
+.additional-buttons-container{display:flex;justify-content:center;gap:10px;margin-top:15px;flex-wrap:wrap;}
+.additional-button{width:60px;height:60px;display:flex;justify-content:center;align-items:center;}
+.additional-button-image{width:95%;height:95%;object-fit:contain;}
+.additional-button:hover .additional-button-image{transform:scale(1.05);}
+
+/* STOPKA COPYRIGHT*/
+.site-footer{text-align:center;margin-top:20px;padding:10px 5px;}
+.site-footer p{font-size:1rem;padding:5px 10px;border-radius:30px;background:rgba(0,0,0,.5);font-weight:400;text-shadow:2px 2px 6px rgba(0,0,0,1);}
+
+.click-hint {
+  display:block;
+  font-size:0.8rem;
+  margin-top:6px;
+  color:#ffd700;
+  font-weight:700;
+  text-shadow:1px 1px 4px rgba(0,0,0,0.9);
+}
+
+/* STOPKA COPYRIGHT */
+.site-footer1 {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 5px;
+}
+
+.site-footer1 p {
+  font-size: 1rem;
+  padding: 7px 16px;
+  border-radius: 0px;
+  background: rgba(0, 0, 0, 1);
+  font-weight: 400;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+  margin-bottom: 5px; /* odstęp między napisami */
+}
+
+.site-footer1 a {
+  color: #BF8EF8;        /* kolor maila */
+  text-decoration: none; /* brak podkreślenia */
+  font-weight: 600;
+}
