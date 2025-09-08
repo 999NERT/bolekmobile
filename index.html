@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AngelkaCSS</title>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Paytone+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script>
-  if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    window.location.href = "https://mobile.angelkacs.pl";
-  }
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AngelkaCSS Mobile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Paytone+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mobile-style.css">
 </head>
 <body>
-
 <div class="main-wrapper">
 
   <!-- PRZYCISKI PARTNERSKIE -->
   <section class="buttons-container">
+
+    <!-- LOGITECH -->
     <div class="button-with-popup logitech-btn">
-      <a href="https://logitechg-emea.sjv.io/vPmBE3"><span class="button-text">LOGI<span class="logitech-tech">TECH</span></span></a>
-      <div class="description-panel"><div class="panel-content"><span class="logitech-highlight">-5%</span> NA CAŁY ASORTYMENT Z KODEM <span class="logitech-tech">ANGELKACS</span></div></div>
+      <a href="https://logitechg-emea.sjv.io/POY2VM" 
+         class="mobile-button"
+         data-description='<span class="logitech-highlight">-5%</span> NA CAŁY ASORTYMENT LOGITECH Z KODEM <span class="logitech-highlight">ANGELKACS</span>'>
+        <span class="button-text">LOGI<span class="logitech-tech">TECHH</span></span>
+      </a>
     </div>
+
+    <!-- PIRATESWAP -->
     <div class="button-with-popup pirateswap-btn">
-      <a href="https://pirateswap.com/?ref=angelkacs"><span class="button-text">PIRATE<span class="pirateswap-swap">SWAP</span></span></a>
-      <div class="description-panel"><div class="panel-content">35% WIĘCEJ DO DOŁADOWANIA Z KODEM: <span class="pirateswap-swap">ANGELKACS</span></div></div>
+      <a href="https://pirateswap.com/?ref=angelkacs" 
+         class="mobile-button"
+         data-description='<span class="pirateswap-swap">35%</span> WIĘCEJ DO DOŁADOWANIA Z KODEM: <span class="pirateswap-swap">ANGELKACS</span>'>
+        <span class="button-text">PIRATE<span class="pirateswap-swap">SWAP</span></span>
+      </a>
     </div>
+    <!-- CSGOSKINS -->
     <div class="button-with-popup csgoskins-btn">
-      <div class="age-badge">+18</div>
-      <a href="https://csgo-skins.com/?ref=ANGELKACS" target="_blank"><span class="button-text">CSG<span class="blue-o">O</span>SKINS</span></a>
-      <div class="description-panel"><div class="panel-content">WPŁAĆ <span class="csgoskins-highlight">20 PLN</span> Z KODEM <span class="csgoskins-highlight">ANGELKACS</span> I WEŹ UDZIAŁ W KONKURSIE <span class="discord-text">DISCORDOWYM</span> GDZIE DO WYGRANIA SĄ <span class="csgoskins-highlight">3X SKIN</span> O WARTOŚCI <span class="csgoskins-highlight">200 PLN</span> DLA POJEDYNCZEJ OSOBY</div></div>
+      <div class="age-badge-mobile">+18</div>
+      <a href="https://csgo-skins.com/?ref=ANGELKACS" 
+         class="mobile-button"
+         data-description='WPŁAĆ <span class="csgoskins-highlight">20 PLN</span> Z KODEM <span class="csgoskins-highlight">ANGELKACS</span> I WEŹ UDZIAŁ W KONKURSIE <span class="discord-text">DISCORDOWYM</span> GDZIE DO WYGRANIA SĄ <span class="csgoskins-highlight">3X SKIN</span> O WARTOŚCI <span class="csgoskins-highlight">200 PLN</span>'>
+        <span class="button-text">CSG<span class="blue-o">O</span>SKINS</span>
+      </a>
     </div>
+
+    <!-- WKDZIK -->
     <div class="button-with-popup wkdzik-btn">
-      <a href="https://wkdzik..pl"><span class="button-text">WKDZIK</span></a>
-      <div class="description-panel"><div class="panel-content">-5% NA CAŁY ASORTYMENT WKDZIK Z KODEM: <span class="wkdzik-highlight">ANGELKA</span></div></div>
+      <a href="https://wkdzik.pl/" 
+         class="mobile-button"
+         data-description='<span class="wkdzik-highlight">-5%</span> NA CAŁY ASORTYMENT WKDZIK Z KODEM: <span class="wkdzik-highlight">ANGELKACS</span>'>
+        <span class="button-text">WKDZIK</span>
+      </a>
     </div>
+
+    <!-- BETTERS -->
     <div class="button-with-popup betters-btn">
-      <div class="age-badge-betters">+18</div>
-      <a href="https://www.betters.pl/?partner=p320081p320156p4d17&source=ANGELKACS#registration"><span class="button-text">BET<span class="betters-ters">TERS</span></span></a>
-      <div class="description-panel"><div class="panel-content">WPISZ KOD: <span class="betters-highlight">ANGELKA</span> I ODBIERZ DARMOWY ZAKŁAD <span class="betters-highlight">10 PLN</span> BEZ WPŁATY I BONUS <span class="betters-highlight">100%</span> OD WPŁATY AŻ DO <span class="betters-highlight">160 PLN</span></div></div>
+      <div class="age-badge-mobile">+18</div>
+      <a href="https://www.betters.pl/?partner=p320081p320156p4d17&source=ANGELKACS#registration" 
+         class="mobile-button"
+         data-description='WPISZ KOD: <span class="betters-highlight">ANGELKA</span> I ODBIERZ DARMOWY ZAKŁAD <span class="betters-highlight">10 PLN</span> BEZ WPŁATY I BONUS <span class="betters-highlight">100%</span> OD WPŁATY AŻ DO <span class="betters-highlight">160 PLN</span>'>
+        <span class="button-text">BET<span class="betters-ters">TERS</span></span>
+      </a>
     </div>
+ <!-- T-MOBILE -->
+ <div class="button-with-popup tmobile-btn">
+   <div class="age-badge-mobile">EVENT</div>
+   <a href="#" 
+      class="mobile-button"
+      data-description='Ruszyły zapisy do T-Esport Championship 2025 od T-Mobile! Prize pool: 100 000€! Wystarczy mieć 16 lat, by wziąć udział. Zapisy trwają do 18 lub 20 września (zależnie od gry). Wielki LAN finał odbędzie się 15-16 listopada w Budapeszcie!'>
+       <span class="button-text">T-<span class="tmobile-highlight">MOBILE</span></span>
+   </a>
+ </div>
+
+
   </section>
 
   <!-- MINIATURKA YT -->
   <section class="latest-video-container">
-    <div class="video-wrapper" id="videoWrapper">
-      <div class="yt-loader">
-        <div class="spinner"></div>
-      </div>
-      <img id="latestThumbnail" alt="" class="video-thumb hidden" />
-      <a id="watchButton" class="play-button hidden" href="#" target="_blank" aria-label="Oglądaj najnowszy film">
-        <img src="ytclick.png" alt="Oglądaj teraz" class="yt-click-image" />
-      </a>
-      <p id="videoError" class="video-error hidden">Nie udało się wczytać miniaturki. Spróbuj odświeżyć.</p>
-    </div>
+    <img id="latestThumbnail" alt="Miniaturka najnowszego filmu" class="video-thumb" />
+    <a id="watchButton" class="play-button" href="#" target="_blank" aria-label="Oglądaj najnowszy film">
+      <img src="ytclick.png" alt="Oglądaj teraz" class="yt-click-image" />
+    </a>
+    <p id="videoError" class="video-error" hidden>Nie udało się wczytać miniaturki. Spróbuj odświeżyć.</p>
   </section>
-
-  <!-- T-MOBILE + EVENT -->
-  <div class="tmobile-wrapper" id="tmobileWrapper">
-    <div class="tmobile-inner">
-      <div class="tmobile-btn" id="tmobileBtn">
-        <img src="TMOBILE.png" alt="T-Mobile" class="tmobile-image" />
-      </div>
-      <div class="live-text-event">EVENT</div>
-    </div>
-  </div>
-
-  <!-- MODAL TMOBILE -->
-  <div id="tmobileModal" class="tmobile-modal">
-    <div class="tmobile-modal-content">
-      <p>Ruszyły zapisy do T-Esport Championship 2025 od T-Mobile! Prize pool: <strong>100 000€</strong>! Wystarczy mieć 16 lat, by wziąć udział. Zapisy trwają do 18 lub 20 września (zależnie od gry). Wielki LAN finał odbędzie się 15-16 listopada w Budapeszcie!</p>
-      <a href="https://tesports.gg/pl" target="_blank" class="tmobile-register-btn">REJESTRACJA</a>
-      <button id="tmobileModalClose">X</button>
-    </div>
-  </div>
 
   <!-- STREAM -->
   <section class="stream-buttons-container">
@@ -84,12 +89,11 @@
       <div class="live-panel" id="twitchLivePanel"><span class="live-text">OFFLINE</span></div>
     </div>
 
-<!-- DISCORD BUTTON -->
-<div class="stream-button-wrapper">
-  <a href="https://discord.gg/rKGKQbuBxm" class="stream-button discord-btn" target="_blank" rel="noopener noreferrer">
-    <img src="1discord.png" alt="Discord" class="stream-button-image" />
-  </a>
-</div>
+    <div class="stream-button-wrapper">
+      <a href="https://discord.gg/rKGKQbuBxm" class="stream-button discord-btn" target="_blank">
+        <img src="1discord.png" alt="Discord" class="stream-button-image" />
+      </a>
+    </div>
 
     <div class="stream-button-wrapper">
       <a href="https://kick.com/angelkacs" class="stream-button kick-btn" target="_blank">
@@ -99,7 +103,6 @@
     </div>
   </section>
 
-  <!-- SOCIAL -->
 <!-- SOCIAL MEDIA -->
 <section class="additional-buttons-container">
   <div class="additional-button-wrapper">
@@ -129,14 +132,16 @@
   </div>
 </section>
 
-  <!-- STOPKA -->
+<footer class="site-footer1">
+  <p>Współpraca/biznes: <a href="mailto:angelka@stormmedia.gg">angelka@stormmedia.gg</a></p>
+</footer>
+
+  <!-- STOPKA COPYRIGHT -->
   <footer class="site-footer">
-    <p class="left-footer-text">©2025 999NERTAjs Wszelkie prawa zastrzeżone - All rights reserved.</p>
-    <p class="right-footer-text">Współpraca/biznes: <a href="mailto:angelka@stormmedia.gg">angelka@stormmedia.gg</a></p>
+    <p>©2025 999NERT. Wszelkie prawa zastrzeżone - All rights reserved.</p>
   </footer>
 
 </div>
-
-<script src="script.js"></script>
+<script src="mobile-script.js"></script>
 </body>
 </html>
