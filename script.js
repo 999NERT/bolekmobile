@@ -124,3 +124,23 @@ ytImage.onerror = () => {
   img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   img.classList.add('visible');
 };
+
+// === BLOKADA PRAWEGO PRZYCISKU I SKRÓTÓW ===
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+document.addEventListener('keydown', function(e) {
+  // Ctrl+U
+  if(e.ctrlKey && e.key.toLowerCase() === 'u'){
+    e.preventDefault();
+  }
+  // F12
+  if(e.key === "F12"){
+    e.preventDefault();
+  }
+  // Ctrl+Shift+I
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i'){
+    e.preventDefault();
+  }
+});
