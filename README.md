@@ -1,1 +1,1 @@
-# lolek
+@2025 999NERTAjs COPYRIGHT
