@@ -8,14 +8,16 @@ async function loadLatestVideo() {
   const err = document.getElementById("videoError");
   const loader = document.querySelector(".yt-loader");
 
-  // Reset stanu używając klas
-  if(err) err.classList.add('hidden');
-  if(btn) btn.classList.add('hidden');
-  if(img) img.classList.add('hidden');
-  if(loader) loader.classList.remove('hidden');
+  // Reset stanu
+  if(err) err.style.display = "none";
+  if(btn) btn.style.display = "none";
+  if(img) img.style.display = "none";
+  if(loader) loader.style.display = "flex";
 
   try {
     const res = await fetch(proxy);
+    if (!res.ok) throw new Error("Błąd sieci");
+    
     const data = await res.json();
     const xml = new DOMParser().parseFromString(data.contents, "application/xml");
     const entries = xml.getElementsByTagName("entry");
@@ -32,22 +34,22 @@ async function loadLatestVideo() {
     if(img){
       img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
       img.onload = () => {
-        img.classList.remove('hidden');
-        btn.classList.remove('hidden');
-        loader.classList.add('hidden');
+        img.style.display = "block";
+        btn.style.display = "block";
+        loader.style.display = "none";
       };
       img.onerror = () => {
         img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        img.classList.remove('hidden');
-        btn.classList.remove('hidden');
-        loader.classList.add('hidden');
+        img.style.display = "block";
+        btn.style.display = "block";
+        loader.style.display = "none";
       };
     }
 
   } catch (e) {
     console.error("Błąd wczytywania YT:", e);
-    loader.classList.add('hidden');
-    err.classList.remove('hidden');
+    if(loader) loader.style.display = "none";
+    if(err) err.style.display = "block";
   }
 }
 
@@ -104,6 +106,7 @@ function initButtonDescriptions() {
   
   buttons.forEach(button => {
     let clickCount = 0;
+    let clickTimer = null;
     
     button.addEventListener('click', function(e) {
       clickCount++;
@@ -131,20 +134,25 @@ function initButtonDescriptions() {
           this.classList.add('show-description');
         }
         
-        // Zresetuj licznik po 1 sekundzie
-        setTimeout(() => {
+        // Ustaw timer do resetu kliknięć
+        clickTimer = setTimeout(() => {
           clickCount = 0;
-        }, 1000);
+        }, 500);
         
       } else if (clickCount === 2) {
         // Drugie kliknięcie - przejdź do linku
+        clearTimeout(clickTimer);
+        clickCount = 0;
+        
+        // Przywróć oryginalny tekst i przejdź
         this.classList.remove('show-description');
         const originalText = this.getAttribute('data-original-text');
         if (originalText) {
           this.querySelector('.button-text').innerHTML = originalText;
         }
-        // Pozwól na normalne przejście do linku
-        clickCount = 0;
+        
+        // Przejdź do linku
+        window.location.href = this.href;
       }
     });
   });
