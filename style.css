@@ -70,27 +70,13 @@ html, body{
 .betters-ters{color:#E50420;}
 .betters-highlight{color:#E50420;font-weight:900;}
 
-/* T-MOBILE */
-.tmobile-btn a {
-  background:#5c002f;
-  color:white;
-}
-.tmobile-highlight {
-  color:#e20074;
-  font-weight:900;
-}
-.tmobile-btn .age-badge-mobile {
-  background:rgba(200,0,0,0.9);
-  font-size:0.8rem;
-  font-weight:900;
-  padding:3px 8px;
-  border-radius:6px;
-  border:2px solid white;
-  top:15px;
-  left:5%;
-  transform:translateX(-50%);
-  text-shadow:1px 1px 2px rgba(0,0,0,0.7);
-}
+/* FCOINS */
+.fcoins-btn a{background:#141619;color:white;}
+.fcoins-f{color:#05DF72;}
+.fcoins-monet, .fcoins-angelkacs{color:#07E864;font-weight:900;}
+
+/* SOON */
+.soon-btn a{background:#000000;color:white;}
 
 /* === MINIATURKA YT === */
 .latest-video-container {
@@ -119,7 +105,6 @@ html, body{
   position: absolute;
   top: 0;
   left: 0;
-  display: block;
 }
 .play-button {
   position: absolute;
@@ -127,7 +112,6 @@ html, body{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  display: none;
 }
 .yt-click-image {
   width: 90px;
@@ -161,7 +145,6 @@ html, body{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
-  display: none;
   background: none;
   border: none;
 }
@@ -177,6 +160,37 @@ html, body{
 .live-text{font-size:12px;font-weight:800;color:#ff4444;}
 .live-panel.live .live-text{color:#00ff00;animation:pulseLive 1.5s infinite;}
 @keyframes pulseLive{0%{opacity:0.6}50%{opacity:1}100%{opacity:0.6;}}
+
+/* USTAWIENIA */
+.settings-btn {
+  background: #2a2a2a;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #666;
+  width: 80px;
+  height: 80px;
+}
+.gear-icon {
+  font-size: 35px;
+  color: #ccc;
+}
+.settings-panel {
+  width: 50px;
+  height: 25px;
+  background: #000;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #666;
+}
+.settings-text {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ccc;
+}
 
 /* SOCIAL MEDIA */
 .additional-buttons-container{display:flex;justify-content:center;gap:10px;margin-top:15px;flex-wrap:wrap;}
@@ -211,11 +225,15 @@ html, body{
   background: rgba(0, 0, 0, 1);
   font-weight: 400;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
-  margin-bottom: 5px; /* odstęp między napisami */
+  margin-bottom: 5px;
 }
 
 .site-footer1 a {
-  color: #BF8EF8;        /* kolor maila */
-  text-decoration: none; /* brak podkreślenia */
+  color: #BF8EF8;
+  text-decoration: none;
   font-weight: 600;
+}
+
+.hidden {
+  display: none !important;
 }
