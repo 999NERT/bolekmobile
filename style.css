@@ -31,6 +31,7 @@ html, body{
   text-decoration:none;
   transition:all .3s ease;
   text-align:center;
+  position:relative;
 }
 .age-badge-mobile{
   position:absolute;top:15px;left:4%;
@@ -105,6 +106,7 @@ html, body{
   position: absolute;
   top: 0;
   left: 0;
+  display: none;
 }
 .play-button {
   position: absolute;
@@ -112,6 +114,7 @@ html, body{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  display: none;
 }
 .yt-click-image {
   width: 90px;
@@ -145,6 +148,7 @@ html, body{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+  display: none;
   background: none;
   border: none;
 }
