@@ -8,10 +8,11 @@ async function loadLatestVideo() {
   const err = document.getElementById("videoError");
   const loader = document.querySelector(".yt-loader");
 
-  if(err) err.style.display = "none";
-  if(btn) btn.style.display = "none";
-  if(img) img.style.display = "none";
-  if(loader) loader.style.display = "flex";
+  // Reset stanu używając klas
+  if(err) err.classList.add('hidden');
+  if(btn) btn.classList.add('hidden');
+  if(img) img.classList.add('hidden');
+  if(loader) loader.classList.remove('hidden');
 
   try {
     const res = await fetch(proxy);
@@ -24,26 +25,29 @@ async function loadLatestVideo() {
     let videoEntry = [...entries].find(e => !e.getElementsByTagName("title")[0].textContent.toLowerCase().includes("short")) || entries[0];
     const videoId = videoEntry.getElementsByTagName("yt:videoId")[0].textContent.trim();
 
-    if(btn) btn.href = `https://www.youtube.com/watch?v=${videoId}`;
+    if(btn) {
+      btn.href = `https://www.youtube.com/watch?v=${videoId}`;
+    }
+    
     if(img){
       img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
       img.onload = () => {
-        img.style.display = "block";
-        if(btn) btn.style.display = "block";
-        if(loader) loader.style.display = "none";
+        img.classList.remove('hidden');
+        btn.classList.remove('hidden');
+        loader.classList.add('hidden');
       };
       img.onerror = () => {
         img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        img.style.display = "block";
-        if(btn) btn.style.display = "block";
-        if(loader) loader.style.display = "none";
+        img.classList.remove('hidden');
+        btn.classList.remove('hidden');
+        loader.classList.add('hidden');
       };
     }
 
   } catch (e) {
     console.error("Błąd wczytywania YT:", e);
-    if(loader) loader.style.display = "none";
-    if(err) err.style.display = "block";
+    loader.classList.add('hidden');
+    err.classList.remove('hidden');
   }
 }
 
@@ -90,8 +94,60 @@ async function checkStreamStatus() {
   // Discord
   if(discord){
     discord.textContent = "JOIN";
-    discord.classList.add("join"); // kolor można ustawić w CSS
+    discord.classList.add("join");
   }
+}
+
+// === OBSŁUGA OPISÓW PRZYCISKÓW MOBILE ===
+function initButtonDescriptions() {
+  const buttons = document.querySelectorAll('.mobile-button');
+  
+  buttons.forEach(button => {
+    let clickCount = 0;
+    
+    button.addEventListener('click', function(e) {
+      clickCount++;
+      
+      if (clickCount === 1) {
+        // Pierwsze kliknięcie - pokaż opis
+        e.preventDefault();
+        
+        // Ukryj wszystkie inne opisy
+        buttons.forEach(otherBtn => {
+          if (otherBtn !== this) {
+            otherBtn.classList.remove('show-description');
+            const originalText = otherBtn.getAttribute('data-original-text');
+            if (originalText) {
+              otherBtn.querySelector('.button-text').innerHTML = originalText;
+            }
+          }
+        });
+        
+        // Pokaż opis dla tego przycisku
+        if (!this.classList.contains('show-description')) {
+          const originalText = this.querySelector('.button-text').innerHTML;
+          this.setAttribute('data-original-text', originalText);
+          this.querySelector('.button-text').innerHTML = this.getAttribute('data-description');
+          this.classList.add('show-description');
+        }
+        
+        // Zresetuj licznik po 1 sekundzie
+        setTimeout(() => {
+          clickCount = 0;
+        }, 1000);
+        
+      } else if (clickCount === 2) {
+        // Drugie kliknięcie - przejdź do linku
+        this.classList.remove('show-description');
+        const originalText = this.getAttribute('data-original-text');
+        if (originalText) {
+          this.querySelector('.button-text').innerHTML = originalText;
+        }
+        // Pozwól na normalne przejście do linku
+        clickCount = 0;
+      }
+    });
+  });
 }
 
 // === BLOKADA PRAWEGO PRZYCISKU I SKRÓTÓW ===
@@ -121,5 +177,6 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener("DOMContentLoaded", () => {
   loadLatestVideo();
   checkStreamStatus();
+  initButtonDescriptions();
   setInterval(checkStreamStatus, 60000);
 });
