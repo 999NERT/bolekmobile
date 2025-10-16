@@ -76,8 +76,11 @@ html, body{
 .fcoins-f{color:#05DF72;}
 .fcoins-monet, .fcoins-angelkacs{color:#07E864;font-weight:900;}
 
-/* SOON */
-.soon-btn a{background:#000000;color:white;}
+/* FCOINS */
+.ig-btn a{background:#141619;color:white;}
+.ig-f{color:#05DF72;}
+.ig-i{color:#07E864;font-weight:900;}
+
 
 /* === MINIATURKA YT === */
 .latest-video-container {
