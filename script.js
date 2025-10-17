@@ -103,58 +103,52 @@ async function checkStreamStatus() {
 // === OBSŁUGA OPISÓW PRZYCISKÓW MOBILE ===
 function initButtonDescriptions() {
   const buttons = document.querySelectorAll('.mobile-button');
+  let activeButton = null;
   
   buttons.forEach(button => {
-    let clickCount = 0;
-    let clickTimer = null;
-    
     button.addEventListener('click', function(e) {
-      clickCount++;
+      // Jeśli kliknięto inny przycisk niż aktywny, resetuj poprzedni
+      if (activeButton && activeButton !== this) {
+        resetButton(activeButton);
+        activeButton = null;
+      }
       
-      if (clickCount === 1) {
-        // Pierwsze kliknięcie - pokaż opis
+      // Jeśli przycisk nie ma opisu (pierwsze kliknięcie)
+      if (!this.classList.contains('show-description')) {
         e.preventDefault();
         
-        // Ukryj wszystkie inne opisy
-        buttons.forEach(otherBtn => {
-          if (otherBtn !== this) {
-            otherBtn.classList.remove('show-description');
-            const originalText = otherBtn.getAttribute('data-original-text');
-            if (originalText) {
-              otherBtn.querySelector('.button-text').innerHTML = originalText;
-            }
-          }
-        });
+        // Zapisz oryginalny tekst i pokaż opis
+        const originalText = this.querySelector('.button-text').innerHTML;
+        this.setAttribute('data-original-text', originalText);
+        this.querySelector('.button-text').innerHTML = this.getAttribute('data-description');
+        this.classList.add('show-description');
+        activeButton = this;
         
-        // Pokaż opis dla tego przycisku
-        if (!this.classList.contains('show-description')) {
-          const originalText = this.querySelector('.button-text').innerHTML;
-          this.setAttribute('data-original-text', originalText);
-          this.querySelector('.button-text').innerHTML = this.getAttribute('data-description');
-          this.classList.add('show-description');
-        }
-        
-        // Ustaw timer do resetu kliknięć
-        clickTimer = setTimeout(() => {
-          clickCount = 0;
-        }, 500);
-        
-      } else if (clickCount === 2) {
-        // Drugie kliknięcie - przejdź do linku
-        clearTimeout(clickTimer);
-        clickCount = 0;
-        
-        // Przywróć oryginalny tekst i przejdź
-        this.classList.remove('show-description');
-        const originalText = this.getAttribute('data-original-text');
-        if (originalText) {
-          this.querySelector('.button-text').innerHTML = originalText;
-        }
-        
-        // Przejdź do linku
+      } else {
+        // Drugie kliknięcie - przejdź do strony
+        resetButton(this);
+        activeButton = null;
         window.location.href = this.href;
       }
     });
+  });
+  
+  // Funkcja resetująca przycisk do stanu początkowego
+  function resetButton(button) {
+    const originalText = button.getAttribute('data-original-text');
+    if (originalText) {
+      button.querySelector('.button-text').innerHTML = originalText;
+    }
+    button.classList.remove('show-description');
+    button.removeAttribute('data-original-text');
+  }
+  
+  // Reset przycisków po kliknięciu w dowolne inne miejsce
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.mobile-button') && activeButton) {
+      resetButton(activeButton);
+      activeButton = null;
+    }
   });
 }
 
